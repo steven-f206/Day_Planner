@@ -1,8 +1,24 @@
 $(document).ready(function() {
 
+    // 1. Create html of the timeblocks dynamically
+
+    for (var i = 9; 1 <= 17; i++){
+        $('.container').append('<div class="row time-block" data-time="${i}"> \
+        <div class="col-sm col-md-2 hour"> \
+            <p>${i}AM</p> \
+        </div> \
+        <div class="col-sm col-md-8 d-flex description"> \
+            <textarea></textarea> \
+            </div> \
+            <div class="col-sm col-md-2 saveBtn"> \
+                <i class="far fa-save fa-2x"></i> \
+            </div> \
+            </div>');
+    };
+
     let timeTrackObject = {};
 
-        // 1. Check if local storage exists, if it doesn't, load preset data to array
+        // 2. Check if local storage exists, if it doesn't, load preset data to array
         if (localStorage.getItem("timeTrackObject")) {
             timeTrackObject = JSON.parse(localStorage.getItem("timeTrackObject"));
         }else {
@@ -19,16 +35,16 @@ $(document).ready(function() {
             };
         };
 
-        // 2. Load data loaded from code under comment 1 into page
+        // 3. Load data loaded from code under comment 1 into page
         $(".time-block").each(function() {
             $(this).find(".description textarea").val(timeTrackObject[$(this).attr("data-time")].value);
         });
 
-    // 3. Using moment.js to show what day it is.
+    // 4. Using moment.js to show what day it is.
     let dateString = moment().format('dddd') + ", " +moment().format("MMM do YY");
     $("#currentDay").html(dateString.substring(0, dateString.length - 5) + "th");
 
-    // 4. This checks the hour of the current day to the hour represented in the HTML data-element to decide its background color
+    // 5. This checks the hour of the current day to the hour represented in the HTML data-element to decide its background color
     const m = moment();
     $.each($(".time-block"), function(index, value) {
         let dateHour = $(value).attr("data-time");
@@ -41,7 +57,7 @@ $(document).ready(function() {
         }
     });
 
-    // 5. When a user clicks the save button data is saved to the objects and to local storage.
+    // 6. When a user clicks the save button data is saved to the objects and to local storage.
     $("body").on('click', ".saveBtn", function(e) {
 
         // Set variables for calling data
