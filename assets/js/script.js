@@ -14,24 +14,24 @@ $(document).ready(function() {
             <i class="far fa-save fa-2x"></i> 
         </div> 
         </div>`);
-        }
+    }
     
     
     let timeTrackObject = {};
-      //2. Checks if local storage exists, if it doesn't load preset data to array.
+        //2. Checks if local storage exists, if it doesn't load preset data to array.
         if (localStorage.getItem('timeTrackObject')) {
-        timeTrackObject = JSON.parse(localStorage.getItem('timeTrackObject'));
+            timeTrackObject = JSON.parse(localStorage.getItem('timeTrackObject'));
         }else{
-        timeTrackObject = {
-            '9': { time: "9", value: ""},
-            '10':{ time: "10", value: ""},
-            '11':{ time: "11", value: ""},
-            '12':{ time: "12", value: ""},
-            '13':{ time: "13", value: ""},
-            '14':{ time: "14", value: ""},
-            '15':{ time: "15", value: ""},
-            '16':{ time: "16", value: ""},
-            '17':{ time: "17", value: ""}
+            timeTrackObject = {
+                '9': { time: "9", value: ""},
+                '10':{ time: "10", value: ""},
+                '11':{ time: "11", value: ""},
+                '12':{ time: "12", value: ""},
+                '13':{ time: "13", value: ""},
+                '14':{ time: "14", value: ""},
+                '15':{ time: "15", value: ""},
+                '16':{ time: "16", value: ""},
+                '17':{ time: "17", value: ""}
             };
         }
     
@@ -71,6 +71,15 @@ $(document).ready(function() {
     //Sends value to local storage for later use.
     localStorage.setItem('timeTrackObject', JSON.stringify(timeTrackObject));
     
+    });
+    
+    // 7.Button to clear all data currently corrected.
+    
+    $("body").on('click', "#clearData", function(e){
+        localStorage.setItem('timeTrackObject', "");
+        $(".time-block").each(function(){
+            $(this).find(".description textarea").val('');
+        });
     });
     
 });
